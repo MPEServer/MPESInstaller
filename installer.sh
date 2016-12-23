@@ -68,7 +68,7 @@ case "$b" in
   "Genisys" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
 			  wget https://gitlab.com/itxtech/genisys/repository/archive.tar.gz 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Распаковываю...\n" 
-			  tar -xvf archive.tar.gzz >> /dev/null
+			  tar -xvf archive.tar.gz >> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Делаю чудеса...\n" 
 			  cp -a genisys-master-*/src . 2> /dev/null 
 			  cp -a genisys-master-*/start.sh . 2> /dev/null 
