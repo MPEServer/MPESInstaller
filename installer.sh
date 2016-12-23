@@ -14,8 +14,6 @@ BREAK='\033[m'       #  ${BREAK}    # все атрибуты по умолча�
 echo -en "${MAGENTA}> ${GRAY}Установщик by expexes\n"
 echo -en "${MAGENTA}> ${GRAY}Запуск...\n"
 
-apt-get install unzip >> /dev/null
-yum install unzip >> /dev/null
 
 check(){
     FILE=start.sh
@@ -68,17 +66,17 @@ echo -en "${CYAN}Выбери ядро${YELLOW} (Genisys/Tesseract/Elywing/Nukki
 read b
 case "$b" in
   "Genisys" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
-			  wget https://github.com/iTXTech/Genisys/archive/master.zip 2> /dev/null
+			  wget https://gitlab.com/itxtech/genisys/repository/archive.tar.gz 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Распаковываю...\n" 
-			  unzip master >> /dev/null
+			  tar -xvf archive.tar.gzz >> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Делаю чудеса...\n" 
-			  cp -a Genisys-master/src . 2> /dev/null 
-			  cp -a Genisys-master/start.sh . 2> /dev/null 
-			  rm -rf Genisys-master 2> /dev/null
+			  cp -a genisys-master-*/src . 2> /dev/null 
+			  cp -a genisys-master-*/start.sh . 2> /dev/null 
+			  rm -rf genisys-master-* 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "Tesseract" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
@@ -90,9 +88,9 @@ case "$b" in
 			  cp -a Tesseract-master/start.sh . 2> /dev/null 
 			  rm -rf Tesseract-master 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "Elywing" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
@@ -104,9 +102,9 @@ case "$b" in
 			  cp -a Elywing-master/start.sh . 2> /dev/null 
 			  rm -rf Elywing-master 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "Nukkit" ) echo -en "${RED}> ${GRAY}Для установки Nukkit надо иметь доступ к правам администратора!\nЕсли ты имеешь доступ пиши 'да', иначе - 'нет': "
@@ -163,17 +161,17 @@ case "$b" in
 		fi;;
 			  
   "genisys" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
-			  wget https://github.com/iTXTech/Genisys/archive/master.zip 2> /dev/null
+			  wget https://gitlab.com/itxtech/genisys/repository/archive.tar.gz 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Распаковываю...\n" 
-			  unzip master >> /dev/null
+			  tar -xvf archive.tar.gz >> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Делаю чудеса...\n" 
-			  cp -a Genisys-master/src . 2> /dev/null 
-			  cp -a Genisys-master/start.sh . 2> /dev/null 
-			  rm -rf Genisys-master 2> /dev/null
+			  cp -a genisys-master-*/src . 2> /dev/null 
+			  cp -a genisys-master-*/start.sh . 2> /dev/null 
+			  rm -rf genisys-master-* 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "tesseract" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
@@ -185,9 +183,9 @@ case "$b" in
 			  cp -a Tesseract-master/start.sh . 2> /dev/null 
 			  rm -rf Tesseract-master 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "elywing" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
@@ -199,9 +197,9 @@ case "$b" in
 			  cp -a Elywing-master/start.sh . 2> /dev/null 
 			  rm -rf Elywing-master 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "nukkit" ) echo -en "${RED}> ${GRAY}Для установки Nukkit надо иметь доступ к правам администратора!\nЕсли ты имеешь доступ пиши 'да', иначе - 'нет': "
@@ -258,17 +256,17 @@ case "$b" in
 		fi;;
 			  
   "1" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
-			  wget https://github.com/iTXTech/Genisys/archive/master.zip 2> /dev/null
+			  wget https://gitlab.com/itxtech/genisys/repository/archive.tar.gz 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Распаковываю...\n" 
-			  unzip master >> /dev/null
+			  tar -xvf archive.tar.gz >> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Делаю чудеса...\n" 
-			  cp -a Genisys-master/src . 2> /dev/null 
-			  cp -a Genisys-master/start.sh . 2> /dev/null 
-			  rm -rf Genisys-master 2> /dev/null
+			  cp -a genisys-master-*/src . 2> /dev/null 
+			  cp -a genisys-master-*/start.sh . 2> /dev/null 
+			  rm -rf genisys-master-* 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "2" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
@@ -280,9 +278,9 @@ case "$b" in
 			  cp -a Tesseract-master/start.sh . 2> /dev/null 
 			  rm -rf Tesseract-master 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "3" ) echo -en "${MAGENTA}> ${GRAY}Скачиваю с репозитория...\n"
@@ -294,9 +292,9 @@ case "$b" in
 			  cp -a Elywing-master/start.sh . 2> /dev/null 
 			  rm -rf Elywing-master 2> /dev/null
 			  echo -en "${MAGENTA}> ${GRAY}Ставлю бинарник...\n" 
-			  wget http://repo.teslex.tech/peinstaller/bin.zip 2> /dev/null 
-			  unzip bin >> /dev/null 
-			  rm -rf bin.zip 2> /dev/null
+			  wget http://repo.teslex.tech/peinstaller/bin.tar.gz 2> /dev/null 
+			  tar -xvf bin.tar.gz >> /dev/null 
+			  rm -rf bin.tar.gz 2> /dev/null
 			  check;;
 			  
   "4" ) echo -en "${RED}> ${GRAY}Для установки Nukkit надо иметь доступ к правам администратора!\nЕсли ты имеешь доступ пиши 'да', иначе - 'нет': "
