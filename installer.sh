@@ -78,7 +78,7 @@ checkCore(){
 		link=https://github.com/TesseractTeam/Tesseract/archive/master.tar.gz
 		achive=master.tar.gz
 		dirict=Tesseract-master
-	elif [[ $core = "2" || $core = "Tesseract" || $core = "tesseract" ]] ; then
+	elif [[ $core = "3" || $core = "Elywing" || $core = "elywing" ]] ; then
 		link=https://github.com/H4PM/Elywing/archive/master.tar.gz
 		achive=master.tar.gz
 		dirict=Elywing-master
