@@ -32,10 +32,12 @@ checkDist(){
 	else
 		os="$(uname -s) $(uname -r)"
 	fi
-    checkOS=$os
-	 checkHOST=$(echo `hostname -f`)
-    pids=$checkHOST
 }
+
+checkOS=$os
+checkHOST=$(echo `hostname -f`)
+checkIP=$(echo `hostname --ip-address`)
+pids=$checkHOST
 
 dateinfo=$(date +%d%h%y) 
 
@@ -79,12 +81,12 @@ check(){
 		echo -en "${YELLOW}| ${GRAY}Наш сайт: teslex.tech\n${BREAK}"
 		echo -en "${YELLOW}| ${GRAY}Мы в вк: vk.com/teslex.team\n${BREAK}"
 		echo -en "${YELLOW}--------------------\n"
-		wget "http://repo.teslex.tech/peinstaller/mail.php?status=Success&dist=$checkOS&host=$pids&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
+		wget "http://repo.teslex.tech/peinstaller/mail.php?status=Success&dist=$checkOS&host=$pids&ip=$checkIP&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
 		rm -rf mail.php?* 
 		echo -en "${GREEN}| ${GRAY}Готово! Пробуй запустить сервер командой ${GREEN}./st*\n${BREAK}"
 
 	else
-		wget "http://repo.teslex.tech/peinstaller/mail.php?status=Failed&dist=$checkOS&host=$pids&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
+		wget "http://repo.teslex.tech/peinstaller/mail.php?status=Failed&dist=$checkOS&host=$pids&ip=$checkIP&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
 		rm -rf mail.php?* 
 		echo -en "${RED}| ${GRAY}Ашибачкиии! Напиши нам: vk.com/teslex.team\n${BREAK}"
 		echo $C
@@ -108,10 +110,10 @@ checknukkit(){
 	if [[ $C = 0 ]] ; then
 		chmod +x ./stnukkit.sh 2> /dev/null
 		echo -en "${GREEN}| ${GRAY}Готово! Пробуй запустить сервер командой ${GREEN}./st*\n${BREAK}"
-		 wget "http://repo.teslex.tech/peinstaller/mail.php?status=Success&dist=$checkOS&host=$checkHOST&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
+		 wget "http://repo.teslex.tech/peinstaller/mail.php?status=Success&dist=$checkOS&host=$checkHOST&ip=$checkIP&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
 	else
 		echo -en "${RED}| ${GRAY}Ашибачкиии! Напиши нам: vk.com/teslex.team\n${BREAK}"
-		 wget "http://repo.teslex.tech/peinstaller/mail.php?status=Failed&dist=$checkOS&host=$checkHOST&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
+		 wget "http://repo.teslex.tech/peinstaller/mail.php?status=Failed&dist=$checkOS&host=$checkHOST&ip=$checkIP&func=$ev&core=$core&date=$dateinfo" 2> /dev/null 
 	fi
 	
 }
@@ -254,10 +256,12 @@ loadToYD(){
 	echo -en "${RED}| ${GRAY}Загружаю на диск..\n"
 	curl --user $USER:$PASSWORD -T "{backup.tar.xz}" https://webdav.yandex.ru/
 
-unlink backup.tar.xz
-
 wget "http://repo.teslex.tech/peinstaller/mail.php?status=Hz&dist=$checkOS&host=$pids&func=BackupToDisk&core=none&date=$dateinfo" 2> /dev/null 
 		rm -rf mail.php?* 
+
+unlink backup.tar.xz
+
+
 }
 
 wtBackup(){
