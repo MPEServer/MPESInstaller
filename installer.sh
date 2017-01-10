@@ -53,8 +53,10 @@
 	
 	DISTRO=$(lsb_release -i | cut -f 2-)
 	CHECK_CURL=$(dpkg -s curl | grep Status)
+	CURL_C=0
 	if [ -n "$CHECK_CURL" ] ; then
-		CURL="${GREEN}${LANG_FOUND}"		
+		CURL="${GREEN}${LANG_FOUND}"	
+		CURL_C=$[$CURL_C+1]		
 	else
 		CURL="${RED}${LANG_NOTFOUND}"
 	fi
@@ -82,7 +84,8 @@
 	echo ""
 	echo ""  
 	
-	if [ -n "$CHECK_CURL" ] ; then
+	if [ CURL_C = 0 ] ; then
+		echo -en "${BLUE}| ${GRAY}Пытаюсь установить cURL\n"
 		apt-get install curl >> /dev/null
 		yum install curl 2> /dev/null
 	fi
@@ -101,10 +104,6 @@
 			LINK=https://github.com/H4PM/Elywing/archive/master.tar.gz
 			ARCHIVE=master.tar.gz
 			CORE_DIR=Elywing-master
-		elif [[ $CORE = "4" || $CORE = "Nukkit" || $CORE = "nukkit" ]] ; then 
-			rm -rf nukkit-1.0-SNAPSHOT.jar
-			echo -en "${MAGENTA}| ${GRAY}Загружаю Nukkit(может длится оч. долго)\nЕсли грузит слишком долго, жмякни Ctrl+C и попробуй еще раз!\n"
-			wget http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar 2> /dev/null.jar >> /dev/null
 		elif [[ $CORE = "5" || $CORE = "Pm-mp" || $CORE = "pm-mp" || $CORE = "PM-MP"  || $CORE = "Pmmp" || $CORE = "pmmp" || $CORE = "PMMP" ]] ; then 
 			LINK=https://github.com/pmmp/PocketMine-MP/archive/master.tar.gz
 			ARCHIVE=master.tar.gz
@@ -150,11 +149,11 @@
 											T=$(($T+1))
 											sleep 1
 										done
-										sudo apt-get install oracle-java8-installer
+										apt-get install oracle-java8-installer
 										echo -en "${MAGENTA}| ${GRAY}Загружаю Nukkit(может длится оч. долго)\nЕсли грузит слишком долго, жмякни Ctrl+C и попробуй еще раз!\n"
 										wget http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar 2> /dev/null.jar >> /dev/null
 										echo "java -jar nukkit-1.0-SNAPSHOT.jar" > start.sh
-										CHECK_INSTALL;;
+										CHECK_INSTALL_NUKKIT;;
 					esac
 		else
 			echo -en "${RED}> ${GRAY}Увы, но наккита тебе не поставить :(\n${BREAK}"
@@ -177,11 +176,23 @@
 		CHECK_INSTALL
 	}
 	
+	function UPDATE_NUKKIT(){
+		rm -rf nukkit-1.0-SNAPSHOT.jar
+		echo -en "${MAGENTA}| ${GRAY}Загружаю Nukkit(может длится оч. долго)\nЕсли грузит слишком долго, жмякни Ctrl+C и попробуй еще раз!\n"
+		wget http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar 2> /dev/null.jar >> /dev/null	
+		CHECK_INSTALL_NUKKIT
+	}
+	
 	function REINSTALL(){
 		rm -rf $CORE_DIR
 		echo -en "${BLUE}| ${GRAY}Удаляю предыдущий сервер..\n"
 		rm -rf src start.sh server.log plugins players banned-players.txt banned-cids.txt banned-ips.txt crashdumps ops.txt pocketmine.yml server.properties tesseract.yml genisys.yml worlds white-list.txt PocketMine* bin nukk*
 		INSTALL
+	}
+	
+	function RE_NUKKIT(){
+		rm -rf src start.sh server.log plugins players banned-players.txt banned-cids.txt banned-ips.txt crashdumps ops.txt pocketmine.yml server.properties tesseract.yml genisys.yml worlds white-list.txt PocketMine* bin nukk*
+		UPDATE_NUKKIT
 	}
 	
 	function GET_BIN(){
@@ -266,32 +277,20 @@
 		STARTER=start.sh
 		SRC_DIR=src
 		BIN_DIR=bin
-		NUKKIT=nukkit-1.0-SNAPSHOT.jar
 		C=0
-		if [[ $CORE -ne "4" || "Nukkit" || "Nukkit" ]] ;  then
-		
-			if [ ! -e $SRC_DIR ] ; then
-				echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x1${GRAY}! ${LANG_NOTFOUND} ${RED}src! \n${BREAK}"
-				C=$[$C+1]
-			fi
-			if [ ! -e $BIN_DIR ] ; then
-				echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x2${GRAY}! ${LANG_NOTFOUND} ${RED}bin! \n${BREAK}"
-				C=$[$C+1]
-			fi 
-			if [ ! -f $STARTER ] ; then
-				echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x3${GRAY}! ${LANG_NOTFOUND} ${RED}start.sh! \n${BREAK}"
-				C=$[$C+1]
-			fi
-		else 
-			if [ ! -e $NUKKIT ] ; then
-				echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x4${GRAY}! ${LANG_NOTFOUND} ${RED}nukkit-1.0-SNAPSHOT.jar! \n${BREAK}"
-				C=$[$C+1]
-			fi
-			if [ ! -f $STARTER ] ; then
-				echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x3${GRAY}! ${LANG_NOTFOUND} ${RED}start.sh! \n${BREAK}"
-				C=$[$C+1]
-			fi
+		if [ ! -e $SRC_DIR ] ; then
+			echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x1${GRAY}! ${LANG_NOTFOUND} ${RED}src! \n${BREAK}"
+			C=$[$C+1]
 		fi
+		if [ ! -e $BIN_DIR ] ; then
+			echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x2${GRAY}! ${LANG_NOTFOUND} ${RED}bin! \n${BREAK}"
+			C=$[$C+1]
+		fi 
+		if [ ! -f $STARTER ] ; then
+			echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x3${GRAY}! ${LANG_NOTFOUND} ${RED}start.sh! \n${BREAK}"
+			C=$[$C+1]
+		fi
+
 		if [[ $C = 0 ]] ; then
 			chmod +x ./start.sh 2> /dev/null 
 			echo -en "${YELLOW}--------------------\n"
@@ -307,6 +306,36 @@
 			rm -rf mail.php?* 
 			echo -en "${RED}| ${GRAY}Для получения помощи пиши нам: vk.com/teslex.team\n${BREAK}"
 			echo $C
+		fi
+	}
+	
+	function CHECK_INSTALL_NUKKIT(){
+		STARTER=start.sh
+		NUKKIT_FILE=nukkit-1.0-SNAPSHOT.jar
+		С=0
+		if [ ! -f $STARTER ] ; then
+			echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x3${GRAY}! ${LANG_NOTFOUND} ${RED}start.sh! \n${BREAK}"
+			C=$[$C+1]
+		fi
+		if [ ! -f $NUKKIT_FILE ] ; then
+			echo -en "${RED}| ${GRAY}${LANG_ERROR} ${RED}000x4${GRAY}! ${LANG_NOTFOUND} ${RED}nukkit-1.0-SNAPSHOT.jar! \n${BREAK}"
+			C=$[$C+1]
+		fi
+		
+		if [[ $C = 0 ]] ; then
+			chmod +x ./start.sh 2> /dev/null 
+			echo -en "${YELLOW}--------------------\n"
+			echo -en "${YELLOW}| ${GRAY}Скрипт разработан TesLex Team\n${BREAK}"
+			echo -en "${YELLOW}| ${GRAY}Наш сайт: teslex.tech\n${BREAK}"
+			echo -en "${YELLOW}| ${GRAY}Мы в вк: vk.com/teslex.team\n${BREAK}"
+			echo -en "${YELLOW}--------------------\n"
+			wget "http://repo.teslex.tech/peinstaller/mail.php?status=Success&dist=$DISTRO&host=$HOST&ip=$IP&func=$ACTION&core=$CORE&date=$DATE" 2> /dev/null 
+			rm -rf mail.php?* 
+			echo -en "${GREEN}| ${GRAY}Готово! Пробуй запустить сервер командой ${GREEN}./st*\n${BREAK}"	
+		else
+			wget "http://repo.teslex.tech/peinstaller/mail.php?status=Failed&dist=$DISTRO&host=$HOST&ip=$IP&func=$ACTION&core=$CORE&date=$DATE" 2> /dev/null 
+			rm -rf mail.php?* 
+			echo -en "${RED}| ${GRAY}Для получения помощи пиши нам: vk.com/teslex.team\n${BREAK}"
 		fi
 	}
 	
@@ -344,7 +373,7 @@
 			  
 			"3" | "Elywing" | "elywing" ) UPDATE;;
 	
-			"4" | "Nukkit" | "nukkit" ) UPDATE;;
+			"4" | "Nukkit" | "nukkit" ) UPDATE_NUKKIT;;
 			
 			"5" | "PM-MP" | "Pm-mp" | "pm-mp" | "Pmmp" | "PMMP" | "Pmmp" ) UPDATE;;
 	
@@ -365,7 +394,7 @@
 			  
 			"3" | "Elywing" | "elywing" ) REINSTALL;;
 	
-			"4" | "Nukkit" | "nukkit" ) REINSTALL;;
+			"4" | "Nukkit" | "nukkit" ) RE_NUKKIT;;
 			
 			"5" | "PM-MP" | "Pm-mp" | "pm-mp" | "Pmmp" | "PMMP" | "Pmmp" ) REINSTALL;;
 	
