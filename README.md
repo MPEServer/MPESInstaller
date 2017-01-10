@@ -1,3 +1,5 @@
+![alt tag](https://pp.vk.me/c836133/v836133874/1a9e8/bBVhC06n1JM.jpg)
+
 # AutoInstaller
 Простой инсталятор MCPE сервера
 
