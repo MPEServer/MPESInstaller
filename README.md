@@ -1,4 +1,4 @@
-![alt tag](https://pp.vk.me/c836133/v836133874/1a9e8/bBVhC06n1JM.jpg)
+![alt tag](http://srv1.teslex.tech/images/installer-logo.png)
 
 # Установка сервера еще никогда не была такой простой
 
