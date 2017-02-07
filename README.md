@@ -1,4 +1,4 @@
-![alt tag](http://srv1.teslex.tech/images/installer-logo.png)
+![alt tag](http://srv1.teslex.tech/images/pe_server_installer_logo.png)
 
 # Установка сервера еще никогда не была такой простой
 
