@@ -84,7 +84,7 @@
 	On_ICyan='\e[0;106m'    # Cyan
 	On_IWhite='\e[0;107m'   # White
 
-	VERSION="0.7-BETA"
+	VERSION="1.0-BETA"
 	DISTRO=$(lsb_release -i | cut -f 2-)
 	IP=$(echo `hostname --ip-address`)
 	HOST=$(echo `hostname -f`)
