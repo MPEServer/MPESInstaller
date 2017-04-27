@@ -352,7 +352,6 @@
 		curl -XPOST -F "filename=@$hashing.tar.xz" https://srv1.teslex.tech/mcpesrvinstaller/backups/upload.php 2> /dev/null
 		echo -en "${Green}| ${IWhite} Ссылка на скачивание: ${Green}http://srv1.teslex.tech/mcpesrvinstaller/backups/$hashing-$DATE.tar.xz\n${Color_Off}"
 
-		wget "http://srv1.teslex.tech/mcpesrvinstaller/mail.php?status=Backup&dist=$DISTRO&host=$HOST&ip=$IP&func=BackupToTesLex&core=none&date=$DATE" 2> /dev/null 
 		rm -rf mail.php* 
 	}
 	
@@ -366,7 +365,6 @@
 		echo -en "${Red}| ${IWhite}Загружаю на диск..\n"
 		curl --user $USER:$PASSWORD -T "{backup.tar.xz}" https://webdav.yandex.ru/
 
-		wget "http://srv1.teslex.tech/mcpesrvinstaller/mail.php?status=Backup&dist=$OS&host=$HOST&ip=$IP&func=BackupToDisk&core=none&date=$DATE" 2> /dev/null 
 		rm -rf mail.php?* 
 
 		unlink backup.tar.xz
@@ -413,11 +411,9 @@
 			echo -en "${Yellow}| ${IWhite}Наш сайт: teslex.tech\n${Color_Off}"
 			echo -en "${Yellow}| ${IWhite}Мы в вк: vk.com/teslex.team\n${Color_Off}"
 			echo -en "${Yellow}--------------------\n"
-			wget "http://srv1.teslex.tech/mcpesrvinstaller/mail.php?status=Success&dist=$DISTRO&host=$HOST&ip=$IP&func=$ACTION&core=$CORE&date=$DATE" 2> /dev/null 
 			rm -rf mail.php?* 
 			echo -en "${Green}| ${IWhite}Готово! Пробуй запустить сервер командой ${Green}./st*\n${Color_Off}"	
 		else
-			wget "http://srv1.teslex.tech/mcpesrvinstaller/mail.php?status=Failed&dist=$DISTRO&host=$HOST&ip=$IP&func=$ACTION&core=$CORE&date=$DATE" 2> /dev/null 
 			rm -rf mail.php?* 
 			echo -en "${Red}| ${IWhite}Для получения помощи пиши нам: vk.com/teslex.team\n${Color_Off}"
 			echo $C
@@ -444,11 +440,9 @@
 			echo -en "${Yellow}| ${IWhite}Наш сайт: teslex.tech\n${Color_Off}"
 			echo -en "${Yellow}| ${IWhite}Мы в вк: vk.com/teslex.team\n${Color_Off}"
 			echo -en "${Yellow}--------------------\n"
-			wget "http://srv1.teslex.tech/mcpesrvinstaller/mail.php?status=Success&dist=$DISTRO&host=$HOST&ip=$IP&func=$ACTION&core=$CORE&date=$DATE" 2> /dev/null 
 			rm -rf mail.php?* 
 			echo -en "${Green}| ${IWhite}Готово! Пробуй запустить сервер командой ${Green}./st*\n${Color_Off}"	
 		else
-			wget "http://srv1.teslex.tech/mcpesrvinstaller/mail.php?status=Failed&dist=$DISTRO&host=$HOST&ip=$IP&func=$ACTION&core=$CORE&date=$DATE" 2> /dev/null 
 			rm -rf mail.php?* 
 			echo -en "${Red}| ${IWhite}Для получения помощи пиши нам: vk.com/teslex.team\n${Color_Off}"
 		fi
