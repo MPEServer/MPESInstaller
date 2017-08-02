@@ -4,22 +4,11 @@
 		"github": {
 			"link" : "http://github.com/pmmp/PocketMine-MP/archive/master.tar.gz",
 			"file": "master.tar.gz",
-			"type": "tar.gz",
-			"actions": [
-				"unpack",
-				"copy to ./path/",
-				"delete ./path/"
-			]
+			"dirname": "PocketMine-MP-master"
 		}, 
 		"bin": {
 			"link" : "srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
-			"file": "bin.tar.gz",
-			"type": "tar.gz",
-			"actions": [
-				"unpack",
-				"copy to ./path/",
-				"delete ./path/"
-			]
+			"file": "bin.tar.gz"
 		}
 	},
 	{
@@ -27,16 +16,11 @@
 		"github": {
 			"link" : "http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar",
 			"file": "nukkit-1.0-SNAPSHOT.jar",
-			"type": "jar",
-			"actions": [
-				"copy to ./path/",
-				"delete ./path/"
-			]
+			"dirname": "-"
 		}, 
 		"bin": {
 			"link" : "-",
-			"archive": "-",
-			"actions": []
+			"file": "bin.tar.gz"
 		}
 	}
 ]
