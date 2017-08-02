@@ -7,7 +7,7 @@
 			"dirname": "PocketMine-MP-master"
 		}, 
 		"bin": {
-			"link" : "srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
+			"link" : "http://srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
 			"file": "bin.tar.gz"
 		}
 	},
@@ -20,7 +20,7 @@
 		}, 
 		"bin": {
 			"link" : "-",
-			"file": "bin.tar.gz"
+			"file": "-"
 		}
 	}
 ]
