@@ -1,5 +1,6 @@
 {       
 	"en": {
+		"title": "English",
 		"path": "Choose path to install",
 		"downloading": "Downloading",
 		"extracting": "Extracting",
@@ -9,6 +10,7 @@
 		"ok": "The server was be installed! Try to start the server by command"
 	},
 	"ru": {
+		"title": "Русский",
 		"path": "Укажи путь к установке",
 		"downloading": "Загрузка",
 		"extracting": "Расспаковка", 
@@ -18,6 +20,7 @@
 		"ok": "Сервер успешно установлен! Ты можешь запустить его коммандой"
 	},
 	"uk": {
+		"title": "Українська",
 		"path": "Вкажи шлях для встановлення", 
 		"downloading": "Завантаження", 
 		"extracting": "Розархівування",    
