@@ -1,6 +1,6 @@
 [
 	{
-		"name": "PocketMine-MP",
+		"name": "PocketMine-MP(dont use)",
 		"github": {
 			"link" : "http://github.com/pmmp/PocketMine-MP/archive/master.tar.gz",
 			"file": "master.tar.gz",
@@ -21,6 +21,18 @@
 		"bin": {
 			"link" : "-",
 			"file": "-"
+		}
+	},
+	{
+		"name": "GenisysPro",
+		"github": {
+			"link" : "https://github.com/GenisysPro/GenisysPro/archive/master.tar.gz",
+			"file": "master.tar.gz",
+			"dirname": "GenisysPro-master"
+		}, 
+		"bin": {
+			"link" : "http://srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
+			"file": "bin.tar.gz"
 		}
 	}
 ]
