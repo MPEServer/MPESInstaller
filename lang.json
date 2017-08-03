@@ -1,0 +1,29 @@
+[       
+	"en": {
+		"path": "Choose path to install",
+		"downloading": "Downloading",
+		"extracting": "Extracting",
+		"gstart": "Generating starter",
+		"core": "Choose core",
+		"installing": "Installing",
+		"ok": "The server was be installed! Try to start the server by command"
+	},
+	"ru": {
+		"path": "Укажи путь к установке",
+		"downloading": "Загрузка",
+		"extracting": "Расспаковка", 
+		"gstart": "Генерация стартера",
+		"core": "Выбери ядро",
+		"installing": "Установка",  
+		"ok": "Сервер успешно установлен! Ты можешь запустить его коммандой"
+	},
+	"uk": {
+		"path": "Вкажи шлях для встановлення", 
+		"downloading": "Завантаження", 
+		"extracting": "Розархівування",    
+		"gstart": "Генерація стартера", 
+		"core": "Вибери ядро",  
+		"installing": "Встановлення", 
+		"ok": "Сервер успішно встановлено! Ти можеш запустити його командою"
+	}
+]
