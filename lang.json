@@ -7,7 +7,12 @@
 		"gstart": "Generating starter",
 		"core": "Choose core",
 		"installing": "Installing",
-		"ok": "The server was be installed! Try to start the server by command"
+		"ok": "The server was be installed! Try to start the server by command",
+		"rei_warning": "WARNING! This action delete all files! Ok? (Yes/No)",
+		"action": "Action",
+		"install": "Install",
+		"update": "Update",
+		"reinstall": "Reinstall"
 	},
 	"ru": {
 		"title": "Русский",
@@ -17,7 +22,11 @@
 		"gstart": "Генерация стартера",
 		"core": "Выбери ядро",
 		"installing": "Установка",  
-		"ok": "Сервер успешно установлен! Ты можешь запустить его коммандой"
+		"ok": "Сервер успешно установлен! Ты можешь запустить его коммандой",
+		"action": "Действие",
+		"install": "Установить",
+		"update": "Обновить",
+		"reinstall": "Переустановить"
 	},
 	"uk": {
 		"title": "Українська",
@@ -27,6 +36,10 @@
 		"gstart": "Генерація стартера", 
 		"core": "Вибери ядро",  
 		"installing": "Встановлення", 
-		"ok": "Сервер успішно встановлено! Ти можеш запустити його командою"
+		"ok": "Сервер успішно встановлено! Ти можеш запустити його командою",
+		"action": "Дія",
+		"install": "Встановити",
+		"update": "Обновити",
+		"reinstall": "Перевстановити"
 	}
 }
