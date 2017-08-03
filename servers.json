@@ -26,7 +26,7 @@
 	{
 		"name": "GenisysPro",
 		"github": {
-			"link" : "https://github.com/GenisysPro/GenisysPro/archive/master.tar.gz",
+			"link" : "http://github.com/GenisysPro/GenisysPro/archive/master.tar.gz",
 			"file": "master.tar.gz",
 			"dirname": "GenisysPro-master"
 		}, 
