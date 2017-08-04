@@ -7,7 +7,7 @@
 			"dirname": "PocketMine-MP-master"
 		}, 
 		"bin": {
-			"link" : "http://srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
+			"link" : "http://srv1.teslex.tech/bin.tar.gz",
 			"file": "bin.tar.gz"
 		}
 	},
@@ -31,7 +31,7 @@
 			"dirname": "Leveryl-master"
 		}, 
 		"bin": {
-			"link" : "http://srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
+			"link" : "http://srv1.teslex.tech/bin.tar.gz",
 			"file": "bin.tar.gz"
 		}
 	},
@@ -43,7 +43,7 @@
 			"dirname": "GenisysPro-master"
 		}, 
 		"bin": {
-			"link" : "http://srv1.teslex.tech:8080/mcpesrvinstaller/bin.tar.gz",
+			"link" : "http://srv1.teslex.tech/bin.tar.gz",
 			"file": "bin.tar.gz"
 		}
 	}
