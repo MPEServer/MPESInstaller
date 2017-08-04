@@ -2,19 +2,19 @@
 	{
 		"name": "PocketMine-MP(dont use)",
 		"github": {
-			"link" : "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
+			"link": "http://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
 			"file": "PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
 			"dirname": "-"
 		}, 
 		"bin": {
-			"link" : "https://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
+			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
 			"file": "PHP_Linux-x86_64.tar.gz"
 		}
 	},
 	{
 		"name": "Nukkit",
 		"github": {
-			"link" : "http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar",
+			"link": "http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar",
 			"file": "nukkit-1.0-SNAPSHOT.jar",
 			"dirname": "-"
 		}, 
@@ -26,19 +26,19 @@
 	{
 		"name": "Leveryl",
 		"github": {
-			"link" : "http://github.com/LeverylTeam/Leveryl/archive/master.tar.gz",
+			"link": "http://github.com/LeverylTeam/Leveryl/archive/master.tar.gz",
 			"file": "master.tar.gz",
 			"dirname": "Leveryl-master"
 		}, 
 		"bin": {
-			"link" : "http://srv1.teslex.tech/bin.tar.gz",
+			"link": "http://srv1.teslex.tech/bin.tar.gz",
 			"file": "bin.tar.gz"
 		}
 	},
 	{
 		"name": "GenisysPro",
 		"github": {
-			"link" : "http://github.com/GenisysPro/GenisysPro/archive/master.tar.gz",
+			"link": "http://github.com/GenisysPro/GenisysPro/archive/master.tar.gz",
 			"file": "master.tar.gz",
 			"dirname": "GenisysPro-master"
 		}, 
