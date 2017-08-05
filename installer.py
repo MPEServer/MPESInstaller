@@ -18,24 +18,24 @@ class Color:
 class Utils:
 	@staticmethod
 	def download(url, path, text):
+		print(text.encode('utf-8'))
 		resource = urllib2.urlopen(url)
 		out = open(path, 'wb')
-		totalLength=float(resource.headers['content-length'])
-		dwnLength=0
-		tmp=resource.read(1024)
-		while(tmp!=''):
-			out.write(tmp)
-			dwnLength+=len(tmp)
-			percent = float(dwnLength/totalLength*100) / 100
-			hashes = '#' * int(round(percent * 20))
-			spaces = ' ' * (20 - len(hashes))
-			sys.stdout.write('\r{2}{6}: {2}[{4}{0}{2}] {3}{1}%{5}'.format(hashes + spaces, int(round(percent * 100)), Color.WHITE, Color.YELLOW, Color.GREEN, Color.ENDC, text.encode('utf-8')))
-			sys.stdout.flush()
-			sys.stdout.flush()
-			tmp=resource.read(1024)
+		# totalLength=float(resource.headers['content-length'])
+		# dwnLength=0
+		# tmp=resource.read(1024)
+		# while(tmp!=''):
+		# 	out.write(tmp)
+		# 	dwnLength+=len(tmp)
+		# 	percent = float(dwnLength/totalLength*100) / 100
+		# 	hashes = '#' * int(round(percent * 20))
+		# 	spaces = ' ' * (20 - len(hashes))
+		# 	sys.stdout.write('\r{2}{6}: {2}[{4}{0}{2}] {3}{1}%{5}'.format(hashes + spaces, int(round(percent * 100)), Color.WHITE, Color.YELLOW, Color.GREEN, Color.ENDC, text.encode('utf-8')))
+		# 	sys.stdout.flush()
+		# 	sys.stdout.flush()
+		# 	tmp=resource.read(1024)
 		out.write(resource.read())
 		out.close()
-		print ''
 
 	@staticmethod
 	def request(url):
@@ -59,23 +59,41 @@ class Utils:
 	@staticmethod
 	def install(srv, path):
 		print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['installing'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
-		Utils.download(srv['github']['link'], path + '/tmp/' + srv['github']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-		if (srv['github']['dirname'] != '-'):
-			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-			Utils.extract_file(path + '/tmp/' + srv['github']['file'], path + '/tmp')
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['dirname'] + '/src ' + path)
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['dirname'] + '/start.sh ' + path)
+	
+		srv['download']['link'] = srv['download']['link'].replace('https', 'http') 
+		print(srv['download']['link'])
+		if (srv['type'] != 'jenkins'):
+			Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+			if (srv['type'] == 'archive'):
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
+				Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
+			elif (srv['type'] == 'github'):
+				#In dev
+				print("this function in develop")
+			elif (srv['type'] == 'file'):
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
+				cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
-		if (srv['bin']['file'] != '-'):
-			print(Color.HEADER + ' - ' + Color.ENDC + 'Installing bin:')
-			Utils.download(srv['bin']['link'], path + '/tmp/' + srv['bin']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-			Utils.extract_file(path + '/tmp/' + srv['bin']['file'], path)
+			if (srv['bin']['file'] != '-'):
+				print(Color.HEADER + ' - ' + Color.ENDC + 'Installing bin:')
+				Utils.download(srv['bin']['link'], path + '/tmp/' + srv['bin']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
+				Utils.extract_file(path + '/tmp/' + srv['bin']['file'], path)
+		else:
+			file_name = json.loads(Utils.request(srv['download']['link'] + '/lastSuccessfulBuild/api/python?pretty=true').read())
+			download_url = srv['download']['link'] + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0]['fileName']
 
-		if (srv['name'] == 'Nukkit'):
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['file'] + ' ' + path)
+			Utils.download(download_url, path + '/tmp/' + file_name, Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + file_name + ' ' + path)
 			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
-			cmd = commands.getoutput('echo "java -jar nukkit-1.0-SNAPSHOT.jar" > ' + path + '/start.sh')
+			cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
+
+			
+
+		
 
 		cmd = commands.getoutput('rm -rf ' + path + '/tmp')
 		cmd = commands.getoutput('chmod +x ' + path + '/start.sh')
@@ -92,15 +110,15 @@ class Utils:
 	def update(srv, path):
 		print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['updating'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
 		cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/start.sh ' + path + '/nukkit-*.jar')
-		Utils.download(srv['github']['link'], path + '/tmp/' + srv['github']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-		if (srv['github']['dirname'] != '-'):
+		Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+		if (srv['download']['dirname'] != '-'):
 			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-			Utils.extract_file(path + '/tmp/' + srv['github']['file'], path + '/tmp')
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['dirname'] + '/src ' + path)
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['dirname'] + '/start.sh ' + path)
+			Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
+			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
+			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
 
 		if (srv['name'] == 'Nukkit'):
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['file'] + ' ' + path)
+			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
 			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
 			cmd = commands.getoutput('echo "java -jar nukkit-1.0-SNAPSHOT.jar" > ' + path + '/start.sh')
 
@@ -124,15 +142,15 @@ class Utils:
 			if input != 'No':
 				print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['reinstalling'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
 				cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/start.sh ' + path + '/nukkit-*.jar'+ path + '/pl*'+ path + '/*.jar'+ path + '/*.phar'+ path + '/*ump*'+ path + '/server*'+ path + '/pocket*'+ path + '/nukkit*')
-				Utils.download(srv['github']['link'], path + '/tmp/' + srv['github']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-				if (srv['github']['dirname'] != '-'):
+				Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+				if (srv['download']['dirname'] != '-'):
 					print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-					Utils.extract_file(path + '/tmp/' + srv['github']['file'], path + '/tmp')
-					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['dirname'] + '/src ' + path)
-					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['dirname'] + '/start.sh ' + path)
+					Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
+					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
+					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
 
 				if (srv['name'] == 'Nukkit'):
-					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['github']['file'] + ' ' + path)
+					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
 					print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
 					cmd = commands.getoutput('echo "java -jar nukkit-1.0-SNAPSHOT.jar" > ' + path + '/start.sh')
 
@@ -220,7 +238,7 @@ class Main:
 
 		cmd = commands.getoutput('mkdir ' + iPath + '/tmp')
 
-		servers = json.load(Utils.request('https://teslex.github.io/MPESInstaller/servers.json'))
+		servers = json.load(Utils.request('http://raw.githubusercontent.com/TesLex/MPESInstaller/master/servers.json'))
 		
 		print(Color.YELLOW + ' + ' + Color.ENDC + LANG[FUCKING_LANG]['core'] + ' ' + Color.WHITE + '(1)' + Color.ENDC + ': ' + Color.WHITE)
 		i = 0
@@ -229,20 +247,21 @@ class Main:
 			print(Color.YELLOW + '   ' + Color.GREEN + str(i) + Color.ENDC + ') ' + Color.WHITE + srv['name'] + Color.ENDC)
 		input = Utils.input(' : ' + Color.WHITE, 1, False)
 
-		try:
-			if int(action) == 1:
-				Utils.install(servers[int(input)-1], iPath)
-			elif int(action) == 2:
-				Utils.update(servers[int(input)-1], iPath)
-			elif int(action) == 3:
-				Utils.reinstall(servers[int(input)-1], iPath)
-			else:
-				print 'error'
-		except Exception as e:
-			print(Color.RED + ' + ' + Color.WHITE + 'ERROR ' + Color.RED + ': ' + str(e))
-			print(Color.YELLOW + ' + ' + Color.WHITE + 'Please contact with us: ' + Color.YELLOW + 'https://t.me/joinchat/FlA3Aw6se0Qu7YXx0xfbZQ' + Color.ENDC)
-
+		if int(action) == 1:
+			Utils.install(servers[int(input)-1], iPath)
+		elif int(action) == 2:
+			Utils.update(servers[int(input)-1], iPath)
+		elif int(action) == 3:
+			Utils.reinstall(servers[int(input)-1], iPath)
+		else:
+			print 'error'
 		
-LANG = json.load(Utils.request('http://raw.githubusercontent.com/TesLex/MPESInstaller/master/lang.json'))
-FUCKING_LANG = Utils.checkLang()
-Main.run()
+
+
+try:	
+	LANG = json.load(Utils.request('http://raw.githubusercontent.com/TesLex/MPESInstaller/master/lang.json'))
+	FUCKING_LANG = Utils.checkLang()
+	Main.run()
+except Exception as e:
+	print(Color.RED + ' + ' + Color.WHITE + 'ERROR ' + Color.RED + ': ' + str(e))
+	print(Color.YELLOW + ' + ' + Color.WHITE + 'Please contact with us: ' + Color.YELLOW + 'https://t.me/joinchat/FlA3Aw6se0Qu7YXx0xfbZQ' + Color.ENDC)
