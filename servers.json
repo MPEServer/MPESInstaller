@@ -44,7 +44,6 @@
 	},
 	{
 		"name": "GenisysPro",
-		"name": "Leveryl",
 		"type": "archive",
 		"starter_file": "start.sh",
 		"start_cmd": "bash start.sh",
