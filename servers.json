@@ -4,8 +4,8 @@
 		"type": "file",
 		"start_cmd": "php PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
 		"download": {
-			"link": "http://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
-			"file": "PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
+			"link": "https://poggit.pmmp.io/r/9683/PocketMine-MP.phar",
+			"file": "PocketMine-MP.phar",
 			"dirname": "-"
 		}, 
 		"bin": {
