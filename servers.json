@@ -1,10 +1,10 @@
 [
 	{
 		"name": "PocketMine-MP(dont use)",
-		"type": "file",
+		"type": "jenkins",
 		"start_cmd": "php PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
 		"download": {
-			"link": "http://poggit.pmmp.io/r/9683/PocketMine-MP.phar",
+			"link": "https://jenkins.pmmp.io/job/PocketMine-MP/",
 			"file": "PocketMine-MP.phar",
 			"dirname": "-"
 		}, 
