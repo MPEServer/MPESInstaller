@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys, json, tarfile, zipfile, commands, os, platform, urllib2, unicodedata
 
-VERSION='2.0'
+VERSION='2.1'
 
 class Color:
 	HEADER = '\033[0;95m'
