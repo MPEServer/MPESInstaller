@@ -60,8 +60,7 @@ class Utils:
 	def install(srv, path):
 		print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['installing'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
 	
-		srv['download']['link'] = srv['download']['link'].replace('https', 'http') 
-		print(srv['download']['link'])
+		srv['download']['link'] = srv['download']['link'].replace('https', 'http')
 		if (srv['type'] != 'jenkins'):
 			Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
 			if (srv['type'] == 'archive'):
