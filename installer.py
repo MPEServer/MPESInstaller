@@ -109,17 +109,36 @@ class Utils:
 	def update(srv, path):
 		print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['updating'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
 		cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/start.sh ' + path + '/nukkit-*.jar')
-		Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-		if (srv['download']['dirname'] != '-'):
-			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-			Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
+		
+		srv['download']['link'] = srv['download']['link'].replace('https', 'http')
+		if (srv['type'] != 'jenkins'):
+			Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+			if (srv['type'] == 'archive'):
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
+				Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
+			elif (srv['type'] == 'github'):
+				#In dev
+				print("this function in develop")
+			elif (srv['type'] == 'file'):
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
+				cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
-		if (srv['name'] == 'Nukkit'):
-			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
+			if (srv['bin']['file'] != '-'):
+				print(Color.HEADER + ' - ' + Color.ENDC + 'Installing bin:')
+				Utils.download(srv['bin']['link'], path + '/tmp/' + srv['bin']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
+				Utils.extract_file(path + '/tmp/' + srv['bin']['file'], path)
+		else:
+			file_name = json.loads(Utils.request(srv['download']['link'] + '/lastSuccessfulBuild/api/python?pretty=true').read())
+			download_url = srv['download']['link'] + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0]['fileName']
+
+			Utils.download(download_url, path + '/tmp/' + file_name, Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + file_name + ' ' + path)
 			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
-			cmd = commands.getoutput('echo "java -jar nukkit-1.0-SNAPSHOT.jar" > ' + path + '/start.sh')
+			cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
 		cmd = commands.getoutput('rm -rf ' + path + '/tmp')
 		cmd = commands.getoutput('chmod +x ' + path + '/start.sh')
@@ -141,17 +160,35 @@ class Utils:
 			if input != 'No':
 				print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['reinstalling'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
 				cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/start.sh ' + path + '/nukkit-*.jar'+ path + '/pl*'+ path + '/*.jar'+ path + '/*.phar'+ path + '/*ump*'+ path + '/server*'+ path + '/pocket*'+ path + '/nukkit*')
-				Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-				if (srv['download']['dirname'] != '-'):
-					print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-					Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
-					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
-					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
+				srv['download']['link'] = srv['download']['link'].replace('https', 'http')
+		if (srv['type'] != 'jenkins'):
+			Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+			if (srv['type'] == 'archive'):
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
+				Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
+			elif (srv['type'] == 'github'):
+				#In dev
+				print("this function in develop")
+			elif (srv['type'] == 'file'):
+				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
+				cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
-				if (srv['name'] == 'Nukkit'):
-					cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
-					print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
-					cmd = commands.getoutput('echo "java -jar nukkit-1.0-SNAPSHOT.jar" > ' + path + '/start.sh')
+			if (srv['bin']['file'] != '-'):
+				print(Color.HEADER + ' - ' + Color.ENDC + 'Installing bin:')
+				Utils.download(srv['bin']['link'], path + '/tmp/' + srv['bin']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
+				Utils.extract_file(path + '/tmp/' + srv['bin']['file'], path)
+		else:
+			file_name = json.loads(Utils.request(srv['download']['link'] + '/lastSuccessfulBuild/api/python?pretty=true').read())
+			download_url = srv['download']['link'] + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0]['fileName']
+
+			Utils.download(download_url, path + '/tmp/' + file_name, Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
+			cmd = commands.getoutput('cp -a ' + path + '/tmp/' + file_name + ' ' + path)
+			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
+			cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
 				cmd = commands.getoutput('rm -rf ' + path + '/tmp')
 				cmd = commands.getoutput('chmod +x ' + path + '/start.sh')
@@ -262,5 +299,5 @@ try:
 	FUCKING_LANG = Utils.checkLang()
 	Main.run()
 except Exception as e:
-	print(Color.RED + ' + ' + Color.WHITE + 'ERROR ' + Color.RED + ': ' + str(e))
-	print(Color.YELLOW + ' + ' + Color.WHITE + 'Please contact with us: ' + Color.YELLOW + 'https://t.me/joinchat/FlA3Aw6se0Qu7YXx0xfbZQ' + Color.ENDC)
+		print(Color.RED + ' + ' + Color.WHITE + 'ERROR ' + Color.RED + ': ' + str(e))
+		print(Color.YELLOW + ' + ' + Color.WHITE + 'Please contact with us: ' + Color.YELLOW + 'https://t.me/joinchat/FlA3Aw6se0Qu7YXx0xfbZQ' + Color.ENDC)
