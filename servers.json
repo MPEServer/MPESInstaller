@@ -4,7 +4,7 @@
 		"type": "file",
 		"start_cmd": "php PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
 		"download": {
-			"link": "https://poggit.pmmp.io/r/9683/PocketMine-MP.phar",
+			"link": "http://poggit.pmmp.io/r/9683/PocketMine-MP.phar",
 			"file": "PocketMine-MP.phar",
 			"dirname": "-"
 		}, 
