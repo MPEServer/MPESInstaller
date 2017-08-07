@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys, json, tarfile, zipfile, commands, os, platform, urllib2, unicodedata
 
-VERSION='2.1'
+VERSION='2.2'
 
 class Color:
 	HEADER = '\033[0;95m'
@@ -90,10 +90,6 @@ class Utils:
 			print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
 			cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
-			
-
-		
-
 		cmd = commands.getoutput('rm -rf ' + path + '/tmp')
 		cmd = commands.getoutput('chmod +x ' + path + '/start.sh')
 
@@ -108,7 +104,7 @@ class Utils:
 	@staticmethod
 	def update(srv, path):
 		print(Color.HEADER + ' - ' + Color.ENDC + LANG[FUCKING_LANG]['updating'] + ' ' + Color.WHITE + srv['name'] + Color.ENDC + ':')
-		cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/start.sh ' + path + '/nukkit-*.jar')
+		cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/nukkit-*.jar')
 		
 		srv['download']['link'] = srv['download']['link'].replace('https', 'http')
 		if (srv['type'] != 'jenkins'):
@@ -117,7 +113,6 @@ class Utils:
 				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
 				Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
 				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
-				cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
 			elif (srv['type'] == 'github'):
 				#In dev
 				print("this function in develop")
@@ -126,11 +121,6 @@ class Utils:
 				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['gstart'] + '..')
 				cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
 
-			if (srv['bin']['file'] != '-'):
-				print(Color.HEADER + ' - ' + Color.ENDC + 'Installing bin:')
-				Utils.download(srv['bin']['link'], path + '/tmp/' + srv['bin']['file'], Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['downloading'] + '..')
-				print(Color.YELLOW + '  + ' + Color.ENDC + LANG[FUCKING_LANG]['extracting'] + '..')
-				Utils.extract_file(path + '/tmp/' + srv['bin']['file'], path)
 		else:
 			file_name = json.loads(Utils.request(srv['download']['link'] + '/lastSuccessfulBuild/api/python?pretty=true').read())
 			download_url = srv['download']['link'] + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0]['fileName']
