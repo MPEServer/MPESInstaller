@@ -38,8 +38,8 @@
 			"dirname": "Leveryl-master"
 		}, 
 		"bin": {
-			"link": "http://srv1.teslex.tech/bin.tar.gz",
-			"file": "bin.tar.gz"
+			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
+			"file": "PHP_Linux-x86_64.tar.gz"
 		}
 	},
 	{
@@ -53,8 +53,8 @@
 			"dirname": "GenisysPro-master"
 		}, 
 		"bin": {
-			"link" : "http://srv1.teslex.tech/bin.tar.gz",
-			"file": "bin.tar.gz"
+			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
+			"file": "PHP_Linux-x86_64.tar.gz"
 		}
 	}
 ]
