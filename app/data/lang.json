@@ -1,0 +1,51 @@
+{
+  "en": {
+    "title": "English",
+    "path": "Choose path to install",
+    "downloading": "Downloading",
+    "extracting": "Extracting",
+    "gstart": "Generating starter",
+    "core": "Choose core",
+    "installing": "Installing",
+    "updating": "Updating",
+    "reinstalling": "Reinstalling",
+    "ok": "The server was be installed! Try to start the server by command",
+    "rei_warning": "WARNING! This action delete all files! Ok? (Yes/No)",
+    "action": "Action",
+    "install": "Install",
+    "update": "Update",
+    "reinstall": "Reinstall"
+  },
+  "ru": {
+    "title": "Русский",
+    "path": "Укажи путь к установке",
+    "downloading": "Загрузка",
+    "extracting": "Расспаковка",
+    "gstart": "Генерация стартера",
+    "core": "Выбери ядро",
+    "installing": "Установка",
+    "updating": "Обновление",
+    "reinstalling": "Переустановка",
+    "ok": "Сервер успешно установлен! Ты можешь запустить его коммандой",
+    "action": "Действие",
+    "install": "Установить",
+    "update": "Обновить",
+    "reinstall": "Переустановить"
+  },
+  "uk": {
+    "title": "Українська",
+    "path": "Вкажи шлях для встановлення",
+    "downloading": "Завантаження",
+    "extracting": "Розархівування",
+    "gstart": "Генерація стартера",
+    "core": "Вибери ядро",
+    "installing": "Встановлення",
+    "updating": "Оновлення",
+    "reinstalling": "Перевстановка",
+    "ok": "Сервер успішно встановлено! Ти можеш запустити його командою",
+    "action": "Дія",
+    "install": "Встановити",
+    "update": "Оновити",
+    "reinstall": "Перевстановити"
+  }
+}

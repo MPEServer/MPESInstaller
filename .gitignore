@@ -1,0 +1,6 @@
+.idea/
+build/
+deb_dist/
+dist/
+MPESInstaller.egg-info/
+MPESInstaller-1.0.tar.gz
