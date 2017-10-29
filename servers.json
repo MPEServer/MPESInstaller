@@ -2,14 +2,14 @@
 	{
 		"name": "PocketMine-MP(dont use)",
 		"type": "jenkins",
-		"start_cmd": "php PocketMine-MP_1.6.2dev-353_2103c981_API-3.0.0-ALPHA7.phar",
+		"start_cmd": "php PocketMine-MP_1.6.*.phar",
 		"download": {
 			"link": "https://jenkins.pmmp.io/job/PocketMine-MP/",
 			"file": "PocketMine-MP.phar",
 			"dirname": "-"
 		}, 
 		"bin": {
-			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
+			"link": "http://jenkins.pmmp.io/job/PHP-7.2-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
 			"file": "PHP_Linux-x86_64.tar.gz"
 		}
 	},
@@ -38,7 +38,7 @@
 			"dirname": "Leveryl-master"
 		}, 
 		"bin": {
-			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
+			"link": "http://jenkins.pmmp.io/job/PHP-7.2-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
 			"file": "PHP_Linux-x86_64.tar.gz"
 		}
 	},
@@ -53,7 +53,7 @@
 			"dirname": "GenisysPro-master"
 		}, 
 		"bin": {
-			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
+			"link": "http://jenkins.pmmp.io/job/PHP-7.2-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
 			"file": "PHP_Linux-x86_64.tar.gz"
 		}
 	}
