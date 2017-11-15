@@ -19,7 +19,8 @@ class Utils:
 	@staticmethod
 	def download(url, path, text):
 		print(text.encode('utf-8'))
-		resource = urllib2.urlopen(url)
+		req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+		resource = urllib2.urlopen(req)
 		out = open(path, 'wb')
 		# totalLength=float(resource.headers['content-length'])
 		# dwnLength=0
