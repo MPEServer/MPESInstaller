@@ -29,6 +29,20 @@
 		}
 	},
 	{
+		"name": "Jupiter",
+		"type": "file",
+		"start_cmd": "java -jar nukkit-1.0-SNAPSHOT.jar",
+		"download": {
+			"link": "https://github.com/JupiterDevelopmentTeam/Jupiter/blob/master/artifact/nukkit-1.0-SNAPSHOT.jar?raw=true",
+			"file": "nukkit-1.0-SNAPSHOT.jar",
+			"dirname": "-"
+		}, 
+		"bin": {
+			"link" : "-",
+			"file": "-"
+		}
+	},
+	{
 		"name": "Leveryl",
 		"type": "archive",
 		"starter_file": "start.sh",
