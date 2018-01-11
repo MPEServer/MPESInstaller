@@ -19,7 +19,7 @@
 		"type": "file",
 		"start_cmd": "java -jar nukkit-1.0-SNAPSHOT.jar",
 		"download": {
-			"link": "http://ci.mengcraft.com:8080/job/nukkit/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar",
+			"link": "https://ci.potestas.xyz/job/NukkitX/job/master/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar",
 			"file": "nukkit-1.0-SNAPSHOT.jar",
 			"dirname": "-"
 		}, 
