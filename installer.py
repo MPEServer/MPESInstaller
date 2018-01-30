@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 
 VERSION = '2.4.1'
 
-HEADER = '	      __   ___  __          __  ___                 ___  __  \n' \
+HEADER = '        __   ___  __          __  ___                 ___  __  \n' \
 		 '  |\/| |__) |__  /__` | |\ | /__`  |   /\  |    |    |__  |__) \n' \
 		 '  |  | |    |___ .__/ | | \| .__/  |  /~~\ |___ |___ |___ |  \ \n' \
 		 '                                   Scripton [ ' + VERSION + ' ]    \n'
@@ -17,6 +17,11 @@ HEADER = '	      __   ___  __          __  ___                 ___  __  \n' \
 CONTACT_LINK = "t.me/teslx"
 
 FUCKING_LANG = "en"
+
+UPGRADE_COMMAND_URL = 'wget -O installer.py "raw.githubusercontent.com/MPEServer/MPESInstaller/master/installer.py" ; python installer.py'
+VERSION_URL = 'https://raw.githubusercontent.com/TesLex/MPESInstaller/master/version.txt'
+SERVERS_URL = 'http://raw.githubusercontent.com/TesLex/MPESInstaller/master/servers.json'
+LANG_URL = 'http://raw.githubusercontent.com/TesLex/MPESInstaller/master/lang.json'
 
 
 class C:
@@ -323,11 +328,8 @@ class Main:
 	def run():
 		print(HEADER)
 
-		if request(
-				'https://raw.githubusercontent.com/TesLex/MPESInstaller/master/version.txt').read().strip() != VERSION:
-			log.warn(
-				'Please upgrade the installer by command: " + C.HEADER + "wget -O installer.py '
-				'"mpeserver.github.io/MPESInstaller/installer.py" && chmod +x ./installer.py && ./installer.py\n')
+		if request(VERSION_URL).read().strip().decode('UTF-8') != VERSION:
+			log.warn('Please upgrade the installer by command: ' + C.HEADER + UPGRADE_COMMAND_URL + '\n')
 
 		log.info(LANG[FUCKING_LANG]['action'] + ' (1):')
 		log.info(C.YELLOW + '1) ' + C.NULL + LANG[FUCKING_LANG]['install'], '   ')
@@ -341,7 +343,7 @@ class Main:
 		if path != '.' and not os.path.exists(path):
 			cmd = getoutput('mkdir -p ' + path)
 
-		SERVERS = json.load(request('http://raw.githubusercontent.com/TesLex/MPESInstaller/master/servers.json'))
+		SERVERS = json.load(request(SERVERS_URL))
 
 		log.info(LANG[FUCKING_LANG]['core'] + ' (1):')
 		for i, s in enumerate(SERVERS):
@@ -360,10 +362,10 @@ class Main:
 		exit(0)
 
 
-# try:
-LANG = json.load(request('http://raw.githubusercontent.com/TesLex/MPESInstaller/master/lang.json'))
-FUCKING_LANG = check_lang()
-Main.run()
-# except Exception as e:
-# 	log.error(str(e))
-# 	log.info('Please contact with us: ' + C.GREEN + CONTACT_LINK)
+try:
+	LANG = json.load(request(LANG_URL))
+	FUCKING_LANG = check_lang()
+	Main.run()
+except Exception as e:
+	log.error(str(e))
+	log.info('Please contact with us: ' + C.GREEN + CONTACT_LINK)
