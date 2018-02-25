@@ -27,49 +27,5 @@
 			"link" : "-",
 			"file": "-"
 		}
-	},
-	{
-		"name": "Jupiter",
-		"type": "file",
-		"start_cmd": "java -jar nukkit-1.0-SNAPSHOT.jar",
-		"download": {
-			"link": "https://github.com/JupiterDevelopmentTeam/Jupiter/blob/master/artifact/nukkit-1.0-SNAPSHOT.jar?raw=true",
-			"file": "nukkit-1.0-SNAPSHOT.jar",
-			"dirname": "-"
-		}, 
-		"bin": {
-			"link" : "-",
-			"file": "-"
-		}
-	},
-	{
-		"name": "Leveryl",
-		"type": "archive",
-		"starter_file": "start.sh",
-		"start_cmd": "bash start.sh",
-		"download": {
-			"link": "http://github.com/LeverylTeam/Leveryl/archive/master.tar.gz",
-			"file": "master.tar.gz",
-			"dirname": "Leveryl-master"
-		}, 
-		"bin": {
-			"link": "http://jenkins.pmmp.io/job/PHP-7.0-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
-			"file": "PHP_Linux-x86_64.tar.gz"
-		}
-	},
-	{
-		"name": "GenisysPro",
-		"type": "archive",
-		"starter_file": "start.sh",
-		"start_cmd": "bash start.sh",
-		"download": {
-			"link": "http://github.com/GenisysPro/GenisysPro/archive/master.tar.gz",
-			"file": "master.tar.gz",
-			"dirname": "GenisysPro-master"
-		}, 
-		"bin": {
-			"link": "http://jenkins.pmmp.io/job/PHP-7.2-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz",
-			"file": "PHP_Linux-x86_64.tar.gz"
-		}
 	}
 ]
