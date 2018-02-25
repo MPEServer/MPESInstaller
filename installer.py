@@ -118,10 +118,11 @@ def install(srv, path, is_bin_file=True):
 	cmd = getoutput('chmod +x ' + path + '/start.sh')
 
 	if path == '.':
-		starter = './start.sh'
+		starter = 'bash start.sh'
 	else:
-		starter = 'cd ' + path + ' && ./start.sh'
-		log.success(LANG[FUCKING_LANG]['ok'] + ' ' + C.GREEN + starter + C.NULL)
+		starter = 'cd ' + path + ' ; bash start.sh'
+	
+	log.success(LANG[FUCKING_LANG]['ok'] + ' ' + C.GREEN + starter + C.NULL)
 
 
 def download(url, path, text='Downloading..'):
