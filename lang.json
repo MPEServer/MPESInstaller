@@ -1,11 +1,11 @@
 {       
 	"en": {
 		"title": "English",
-		"path": "Choose path to install",
+		"path": "Path to install",
 		"downloading": "Downloading",
 		"extracting": "Extracting",
 		"gstart": "Generating starter",
-		"core": "Choose core",
+		"core": "Server",
 		"installing": "Installing",
 		"updating": "Updating",
 		"reinstalling": "Reinstalling",
@@ -14,15 +14,16 @@
 		"action": "Action",
 		"install": "Install",
 		"update": "Update",
-		"reinstall": "Reinstall"
+		"reinstall": "Reinstall",
+		"select_version": "Version"
 	},
 	"ru": {
 		"title": "Русский",
-		"path": "Укажи путь к установке",
+		"path": "Путь к установке",
 		"downloading": "Загрузка",
 		"extracting": "Расспаковка", 
 		"gstart": "Генерация стартера",
-		"core": "Выбери ядро",
+		"core": "Ядро",
 		"installing": "Установка",
 		"updating": "Обновление",
 		"reinstalling": "Переустановка", 
@@ -30,15 +31,16 @@
 		"action": "Действие",
 		"install": "Установить",
 		"update": "Обновить",
-		"reinstall": "Переустановить"
+		"reinstall": "Переустановить",
+		"select_version": "Версия"
 	},
 	"uk": {
 		"title": "Українська",
-		"path": "Вкажи шлях для встановлення", 
+		"path": "Шлях для встановлення", 
 		"downloading": "Завантаження", 
 		"extracting": "Розархівування",    
 		"gstart": "Генерація стартера", 
-		"core": "Вибери ядро",  
+		"core": "Ядро",  
 		"installing": "Встановлення",
 		"updating": "Оновлення",
 		"reinstalling": "Перевстановка", 
@@ -46,6 +48,7 @@
 		"action": "Дія",
 		"install": "Встановити",
 		"update": "Оновити",
-		"reinstall": "Перевстановити"
+		"reinstall": "Перевстановити",
+		"select_version": "Версія"
 	}
 }

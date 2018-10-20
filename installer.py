@@ -1,3 +1,5 @@
+#!/bin/env python3
+
 # -*- coding: utf-8 -*-
 import json
 import os
@@ -7,33 +9,35 @@ import zipfile
 from subprocess import getoutput
 from urllib.request import Request, urlopen
 
-VERSION = '2.4.1'
-
-HEADER = '        __   ___  __          __  ___                 ___  __  \n' \
-		 '  |\/| |__) |__  /__` | |\ | /__`  |   /\  |    |    |__  |__) \n' \
-		 '  |  | |    |___ .__/ | | \| .__/  |  /~~\ |___ |___ |___ |  \ \n' \
-		 '                                   Scripton [ ' + VERSION + ' ]    \n'
-
-CONTACT_LINK = "t.me/teslx"
-
-FUCKING_LANG = "en"
-
-UPGRADE_COMMAND_URL = 'wget -O installer.py "raw.githubusercontent.com/MPEServer/MPESInstaller/master/installer.py" ; python installer.py'
-VERSION_URL = 'https://raw.githubusercontent.com/TesLex/MPESInstaller/master/version.txt'
-SERVERS_URL = 'http://raw.githubusercontent.com/TesLex/MPESInstaller/master/servers.json'
-LANG_URL = 'http://raw.githubusercontent.com/TesLex/MPESInstaller/master/lang.json'
-
 
 class C:
 	HEADER = '\033[0;95m'
 	BLUE = '\033[0;94m'
 	CYAN = '\033[0;96m'
-	YELLOW = '\033[0;93m'
+	YELLOW = '\033[0;80m'
 	RED = '\033[0;91m'
 	NULL = '\033[0m'
 	GREEN = '\033[0;92m'
 	WHITE = '\033[0;97m'
 	BLACK = '\033[0;90m'
+	ITALIC = '\033[3m'
+	BOLD = '\033[1m'
+
+VERSION = '3.0.0'
+
+HEADER = '        __   ___  __          __  ___                 ___  __  \n' \
+		 '  |\/| |__) |__  /__` | |\ | /__`  |   /\  |    |    |__  |__) \n' \
+		 '  |  | |    |___ .__/ | | \| .__/  |  /~~\ |___ |___ |___ |  \ \n' \
+		 '                                   by ' + C.ITALIC + C.BOLD + 'TesLex' + C.NULL + ' [ ' + VERSION + ' ]    \n'
+
+CONTACT_LINK = 't.me/teslx'
+
+USER_LANG = "en"
+
+UPGRADE_COMMAND_URL = 'wget -O installer.py "raw.githubusercontent.com/MPEServer/MPESInstaller/master/installer.py" ; python installer.py'
+VERSION_URL = 'https://raw.githubusercontent.com/TesLex/MPESInstaller/master/version.txt'
+SERVERS_URL = 'http://raw.githubusercontent.com/TesLex/MPESInstaller/master/servers.json'
+LANG_URL = 'http://raw.githubusercontent.com/TesLex/MPESInstaller/master/lang.json'
 
 
 class log:
@@ -70,63 +74,8 @@ class log:
 		print(C.GREEN + separ + C.NULL + text)
 
 
-def install(srv, path, is_bin_file=True):
-	download_link = srv['download']['link']
-	type = srv['type']
-	download_file = srv['download']['file']
-	download_dirname = srv['download']['dirname']
-	bin_file = srv['bin']['file']
-	start_cmd = srv['start_cmd']
 
-	# srv['download']['link'] = srv['download']['link'].replace('https', 'http')
-	if type != 'jenkins':
-		# log.warn(LANG[FUCKING_LANG]['downloading'] + '..', '   - ')
-		download(download_link, '/tmp/' + download_file)
-		if type == 'archive':
-			log.warn(LANG[FUCKING_LANG]['extracting'] + '..', '   - ')
-			extract_file('/tmp/' + download_file, '/tmp/')
-			copyfile('/tmp/' + download_dirname + '/src ', path)
-			copyfile('/tmp/' + download_dirname + '/start.sh ', path)
-		elif type == 'github':
-			# In dev
-			log.error("this function in develop")
-		elif type == 'file':
-			copyfile('/tmp/' + download_file, path)
-			log.warn(LANG[FUCKING_LANG]['gstart'] + '..', '   - ')
-			copyfile('/tmp/' + download_file, path)
-			cmd = getoutput('echo "' + start_cmd + '" > ' + path + '/start.sh')
-
-		if is_bin_file is True:
-			if bin_file != '-':
-				log.info('Installing bin:' + '..')
-				# log.warn(LANG[FUCKING_LANG]['downloading'] + '..', '   - ')
-				download(srv['bin']['link'], '/tmp/' + bin_file)
-				log.warn(LANG[FUCKING_LANG]['extracting'] + '..', '   - ')
-				extract_file('/tmp/' + bin_file, path)
-	else:
-		file_name = json.loads(
-			request(download_link + '/lastSuccessfulBuild/api/python?pretty=true').read())
-		download_url = download_link + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0][
-			'fileName']
-
-		download(download_url, '/tmp/' + file_name)
-		cmd = getoutput('cp -a ' + '/tmp/' + file_name + ' ' + path)
-		log.warn(LANG[FUCKING_LANG]['gstart'] + '..', '   - ')
-		cmd = getoutput('echo "' + start_cmd + '" > ' + path + '/start.sh')
-
-	cmd = getoutput('rm -rf ' + path + '/tmp')
-	cmd = getoutput('chmod +x ' + path + '/start.sh')
-
-	if path == '.':
-		starter = 'bash start.sh'
-	else:
-		starter = 'cd ' + path + ' ; bash start.sh'
-	
-	log.success(LANG[FUCKING_LANG]['ok'] + ' ' + C.GREEN + starter + C.NULL)
-
-
-def download(url, path, text='Downloading..'):
-	# print(text.encode('utf-8'))
+def download(url, path, text='Downloading.. '):
 	req = Request(url, headers={'User-Agent': "Magic Browser"})
 	resource = urlopen(req)
 	out = open(path, 'wb')
@@ -139,12 +88,11 @@ def download(url, path, text='Downloading..'):
 		out.write(tmp)
 		dwn_length += len(tmp)
 		percent = float(dwn_length / total_length * 100) / 100
-		hashes = '#' * int(round(percent * 20))
-		spaces = ' ' * (20 - len(hashes))
+		percent_round = int(round(percent * 100))
+
 		sys.stdout.write(
-			'\r   - {2}{6}: {2}[{4}{0}{2}] {3}{1}%{5}'.format(hashes + spaces, int(round(percent * 100)), C.NULL,
-															  C.YELLOW,
-															  C.GREEN, C.NULL, text))
+      		'\r{}{}%'.format(text, percent_round)
+		)
 
 		sys.stdout.flush()
 		tmp = resource.read(1024)
@@ -177,114 +125,6 @@ def extract_file(path, to_directory='.'):
 		raise ValueError('Could not extract `%s` as no appropriate extractor is found' % path)
 
 
-# def update(srv, path):
-#     print(C.HEADER + ' - ' + C.NULL + LANG[FUCKING_LANG]['updating'] + ' ' + C.WHITE + srv[
-#         'name'] + C.NULL + ':')
-#     cmd = commands.getoutput('rm -rf src ' + path + '/PocketMin* ' + path + '/nukkit-*.jar')
-#
-#     srv['download']['link'] = srv['download']['link'].replace('https', 'http')
-#     if (srv['type'] != 'jenkins'):
-#         Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'],
-#                        C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['downloading'] + '..')
-#         if (srv['type'] == 'archive'):
-#             print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['extracting'] + '..')
-#             Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
-#             cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
-#         elif (srv['type'] == 'github'):
-#             # In dev
-#             print("this function in develop")
-#         elif (srv['type'] == 'file'):
-#             cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
-#             print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['gstart'] + '..')
-#             cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
-#
-#     else:
-#         file_name = json.loads(
-#             Utils.request(srv['download']['link'] + '/lastSuccessfulBuild/api/python?pretty=true').read())
-#         download_url = srv['download']['link'] + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0][
-#             'fileName']
-#
-#         Utils.download(download_url, path + '/tmp/' + file_name,
-#                        C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['downloading'] + '..')
-#         cmd = commands.getoutput('cp -a ' + path + '/tmp/' + file_name + ' ' + path)
-#         print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['gstart'] + '..')
-#         cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
-#
-#     cmd = commands.getoutput('rm -rf ' + path + '/tmp')
-#     cmd = commands.getoutput('chmod +x ' + path + '/start.sh')
-#
-#     if (path == '.'):
-#         starter = './start.sh'
-#     else:
-#         starter = 'cd ' + path + ' && ./start.sh'
-#
-#     print(C.NULL + '  ----------------------------------------')
-#     print(C.WHITE + '  ' + LANG[FUCKING_LANG]['ok'] + ' ' + C.GREEN + starter + C.NULL)
-#
-#     def reinstall(srv, path):
-#
-#         print(C.RED + ' + ' + C.NULL + LANG[FUCKING_LANG][
-#             'rei_warning'] + ' ' + C.WHITE + '(1)' + C.NULL + ': ' + C.WHITE)
-#         inputin = Utils.inputin(' : ' + C.WHITE, 'No', False)
-#
-#         if inputin != 'No':
-#             print(C.HEADER + ' - ' + C.NULL + LANG[FUCKING_LANG]['reinstalling'] + ' ' + C.WHITE + srv[
-#                 'name'] + C.NULL + ':')
-#             cmd = commands.getoutput(
-#                 'rm -rf src ' + path + '/PocketMin* ' + path + '/start.sh ' + path + '/nukkit-*.jar' + path + '/pl*' + path + '/*.jar' + path + '/*.phar' + path + '/*ump*' + path + '/server*' + path + '/pocket*' + path + '/nukkit*')
-#             srv['download']['link'] = srv['download']['link'].replace('https', 'http')
-#             if (srv['type'] != 'jenkins'):
-#                 Utils.download(srv['download']['link'], path + '/tmp/' + srv['download']['file'],
-#                                C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['downloading'] + '..')
-#                 if (srv['type'] == 'archive'):
-#                     print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['extracting'] + '..')
-#                     Utils.extract_file(path + '/tmp/' + srv['download']['file'], path + '/tmp')
-#                     cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/src ' + path)
-#                     cmd = commands.getoutput(
-#                         'cp -a ' + path + '/tmp/' + srv['download']['dirname'] + '/start.sh ' + path)
-#                 elif (srv['type'] == 'github'):
-#                     # In dev
-#                     print("this function in develop")
-#                 elif (srv['type'] == 'file'):
-#                     cmd = commands.getoutput('cp -a ' + path + '/tmp/' + srv['download']['file'] + ' ' + path)
-#                     print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['gstart'] + '..')
-#                     cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
-#
-#                 if (srv['bin']['file'] != '-'):
-#                     print(C.HEADER + ' - ' + C.NULL + 'Installing bin:')
-#                     Utils.download(srv['bin']['link'], path + '/tmp/' + srv['bin']['file'],
-#                                    C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['downloading'] + '..')
-#                     print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['extracting'] + '..')
-#                     Utils.extract_file(path + '/tmp/' + srv['bin']['file'], path)
-#             else:
-#                 file_name = json.loads(
-#                     Utils.request(srv['download']['link'] + '/lastSuccessfulBuild/api/python?pretty=true').read())
-#                 download_url = srv['download']['link'] + '/lastSuccessfulBuild/artifact/' + file_name['artifacts'][0][
-#                     'fileName']
-#
-#                 Utils.download(download_url, path + '/tmp/' + file_name,
-#                                C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['downloading'] + '..')
-#                 cmd = commands.getoutput('cp -a ' + path + '/tmp/' + file_name + ' ' + path)
-#                 print(C.YELLOW + '  + ' + C.NULL + LANG[FUCKING_LANG]['gstart'] + '..')
-#                 cmd = commands.getoutput('echo "' + srv['start_cmd'] + '" > ' + path + '/start.sh')
-#
-#             cmd = commands.getoutput('rm -rf ' + path + '/tmp')
-#             cmd = commands.getoutput('chmod +x ' + path + '/start.sh')
-#
-#             if (path == '.'):
-#                 starter = './start.sh'
-#             else:
-#                 starter = 'cd ' + path + ' && ./start.sh'
-#
-#             print(C.NULL + '  ----------------------------------------')
-#             print(C.WHITE + '  ' + LANG[FUCKING_LANG]['ok'] + ' ' + C.GREEN + starter + C.NULL)
-#         else:
-#             try:
-#                 sys.exit(0)
-#             except SystemExit:
-#                 os._exit(0)
-
-
 def inputin(placeholder, default, tpl=True):
 	try:
 		if tpl:
@@ -303,25 +143,65 @@ def inputin(placeholder, default, tpl=True):
 def check_lang():
 	if not os.path.exists('mpesinstaller_data'):
 		cmd = getoutput('mkdir mpesinstaller_data')
-		if not os.path.exists('mpesinstaller_data/lang.txt'):
-			print(
-				C.YELLOW + ' + ' + C.NULL + 'Select lang ' + C.WHITE + '(1)' + C.NULL + ': ' + C.WHITE)
-			print(C.YELLOW + '   ' + C.GREEN + '1' + C.NULL + ') ' + C.WHITE + 'English' + C.NULL)
-			print(
-				C.YELLOW + '   ' + C.GREEN + '2' + C.NULL + ') ' + C.WHITE + 'Українська' + C.NULL)
-			print(C.YELLOW + '   ' + C.GREEN + '3' + C.NULL + ') ' + C.WHITE + 'Русский' + C.NULL)
-			lang = inputin(' : ' + C.WHITE, 1, False)
 
-			lang = int(lang)
+	if not os.path.exists('mpesinstaller_data/lang.txt'):
+		print(C.YELLOW + ' + ' + C.NULL + 'Language ' + C.NULL + '(1)' + C.NULL + ': ' + C.NULL)
+		print(C.YELLOW + '   ' + C.GREEN + '1' + C.NULL + ') ' + C.NULL + 'English' + C.NULL)
+		print(C.YELLOW + '   ' + C.GREEN + '2' + C.NULL + ') ' + C.NULL + 'Українська' + C.NULL)
+		print(C.YELLOW + '   ' + C.GREEN + '3' + C.NULL + ') ' + C.NULL + 'Русский' + C.NULL)
 
-			if lang == 1:
-				cmd = getoutput('echo "en" > mpesinstaller_data/lang.txt')
-			elif lang == 2:
-				cmd = getoutput('echo "uk" > mpesinstaller_data/lang.txt')
-			elif lang == 3:
-				cmd = getoutput('echo "ru" > mpesinstaller_data/lang.txt')
+		lang = inputin(' : ' + C.NULL, 1, False)
+
+		lang = int(lang)
+
+		if lang == 1:
+			cmd = getoutput('echo "en" > mpesinstaller_data/lang.txt')
+		elif lang == 2:
+			cmd = getoutput('echo "uk" > mpesinstaller_data/lang.txt')
+		elif lang == 3:
+			cmd = getoutput('echo "ru" > mpesinstaller_data/lang.txt')
+		else:
+			cmd = getoutput('echo "en" > mpesinstaller_data/lang.txt')
 
 	return getoutput('cat mpesinstaller_data/lang.txt')
+
+def i18(key):
+	return LANG[USER_LANG][key]
+
+
+def install(srv, path, is_bin_file=True):
+	globals()['path'] = path
+	stages = srv['stages']
+	lang_props = srv['i18'] if 'i18' in srv else False
+
+	variables = srv['vars']
+
+	if variables:
+		for variable, value in variables.items():
+			globals()[variable] = value
+			# eval(('{}={}'.format(variable, value if value.isdigit() else value if value is 'True' or value is 'False' else "\"" + value + "\"")).strip())
+
+	if lang_props:
+		if 'en' in lang_props:
+			LANG['en'].update(lang_props['en'])
+		if 'uk' in lang_props:
+			LANG['uk'].update(lang_props['uk'])
+		if 'ru' in lang_props:
+			LANG['ru'].update(lang_props['ru'])
+
+	for stage in stages:
+		if 'script' in stage:
+			name = eval(stage['name'])
+			if name:
+				log.warn(eval(stage['name']), '   ~ ')
+
+			for s in stage['script']:
+				if type(s) is list:
+					if s:
+						s = '\n'.join(map(str, s))
+						exec(s)
+				else:
+					exec(s)
 
 
 class Main:
@@ -332,13 +212,13 @@ class Main:
 		if request(VERSION_URL).read().strip().decode('UTF-8') != VERSION:
 			log.warn('Please upgrade the installer by command: ' + C.HEADER + UPGRADE_COMMAND_URL + '\n')
 
-		log.info(LANG[FUCKING_LANG]['action'] + ' (1):')
-		log.info(C.YELLOW + '1) ' + C.NULL + LANG[FUCKING_LANG]['install'], '   ')
-		log.info(C.YELLOW + '2) ' + C.NULL + LANG[FUCKING_LANG]['update'], '   ')
-		log.info(C.YELLOW + '3) ' + C.NULL + LANG[FUCKING_LANG]['reinstall'], '   ')
+		log.info(i18('action') + ' (1):')
+		log.info(C.YELLOW + '1) ' + C.NULL + i18('install'), '   ')
+		# log.info(C.YELLOW + '2) ' + C.NULL + i18('update'), '   ')
+		# log.info(C.YELLOW + '3) ' + C.NULL + i18('reinstall'), '   ')
 		action = inputin(" : " + C.YELLOW, "1", False)
 
-		log.info(LANG[FUCKING_LANG]['path'] + ' (.):')
+		log.info(i18('path') + ' (.):')
 		path = inputin(' : ', '.', False)
 
 		if path != '.' and not os.path.exists(path):
@@ -346,14 +226,35 @@ class Main:
 
 		SERVERS = json.load(request(SERVERS_URL))
 
-		log.info(LANG[FUCKING_LANG]['core'] + ' (1):')
+		# SERVERS = json.loads(open('servers.json').read())
+
+		log.info('{} ({}):'.format(i18('core'), SERVERS[0]['name']))
+
 		for i, s in enumerate(SERVERS):
 			log.warn(s['name'], '   ' + str(i + 1) + ') ')
-		sex = inputin(' : ', '1', False)
+
+		SERVER = SERVERS[int(inputin(' : ', '1', False)) - 1]
+		SERVER_NAME = SERVER['name']
+		SERVER_VERSION = SERVER['version']
+
+		if 'versions' in SERVER:
+			log.info('{} ({}):'.format(i18('select_version'), SERVER['version']))
+
+			log.warn(SERVER['version'], '   1) ')
+
+			for i, s in enumerate(SERVER['versions']):
+				log.warn(s['name'], '   ' + str(i + 2) + ') ')
+
+			SEL_SERVER = int(inputin(' : ', '1', False))
+
+			if SEL_SERVER > 1:
+				SERVER = SERVER['versions'][SEL_SERVER - 2]
+				SERVER_VERSION = SERVER['name']
+
 
 		if int(action) == 1:
-			log.info(LANG[FUCKING_LANG]['installing'] + ' ' + SERVERS[int(sex) - 1]['name'])
-			install(SERVERS[int(sex) - 1], path)
+			log.info(i18('installing') + ' ' + SERVER_NAME + ' (' + C.BOLD + SERVER_VERSION + C.NULL + ')')
+			install(SERVER, path)
 		elif int(action) == 2:
 			log.error("In develop")
 		elif int(action) == 3:
@@ -365,7 +266,8 @@ class Main:
 
 try:
 	LANG = json.load(request(LANG_URL))
-	FUCKING_LANG = check_lang()
+	# LANG = json.loads(open('lang.json').read())
+	USER_LANG = check_lang()
 	Main.run()
 except Exception as e:
 	log.error(str(e))
