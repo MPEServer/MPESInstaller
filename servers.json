@@ -9,7 +9,7 @@
 			"en": {
 				"download_nukkit": "Downloading Jar",
 				"success_nukkit": "Nukkit successfully installed!",
-				"run_by_command": "You can run it by comand:"
+				"run_by_command": "You can run it by command:"
 			},
 			"uk": {
 				"download_nukkit": "Завантаження Jar",
@@ -17,9 +17,9 @@
 				"run_by_command": "Ви можете запустити його командою нижче:"
 			},
 			"ru": {
-				"download_nukkit": "Завантаження Jar",
-				"success_nukkit": "Nukkit успішно встановлено!",
-				"run_by_command": "Ви можете запустити його командою нижче:"
+				"download_nukkit": "Загрузка Jar",
+				"success_nukkit": "Nukkit успешно установлено!",
+				"run_by_command": "Запустить можно командой ниже:"
 			}
 		},
 		"stages": [
@@ -48,7 +48,7 @@
 					"en": {
 						"download_nukkit": "Downloading Jar",
 						"success_nukkit": "Nukkit successfully installed!",
-						"run_by_command": "You can run it by comand:"
+						"run_by_command": "You can run it by command:"
 					},
 					"uk": {
 						"download_nukkit": "Завантаження Jar",
