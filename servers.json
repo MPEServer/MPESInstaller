@@ -108,7 +108,7 @@
 				"name": "False",
 				"script": [
 					"log.info(i18('install_script'), '   ~ ')",
-					"log.warn(pmmpInstallCommand,    > )",
+					"log.warn(pmmpInstallCommand, '   > ')",
 					"getoutput('cd ' + path + ' ; ' + pmmpInstallCommand + ' ; ' + 'cd -')",
 					"print()",
 					"log.success(i18('success_pm'))",
