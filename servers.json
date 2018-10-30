@@ -79,5 +79,43 @@
 				]
 			}
 		]
+	},
+
+	{
+		"name": "PocketMine",
+		"version": "latest",
+		"vars": {
+			"pmmpInstallCommand": "wget -q -O - https://get.pmmp.io | bash -s -"
+		},
+		"i18": {
+			"en": {
+				"install_script": "Executing installer from 'https://pmmp.readthedocs.io/en/rtfd/installation/get-dot-pmmp-dot-io.html'",
+				"success_pm": "PocketMine successfully installed!",
+				"run_by_command": "You can run it by command:"
+			},
+			"uk": {
+				"install_script": "Виконання встановлювача з 'https://pmmp.readthedocs.io/en/rtfd/installation/get-dot-pmmp-dot-io.html'",
+				"success_pm": "PocketMine успішно встановлено!",
+				"run_by_command": "Ви можете запустити його командою нижче:"},
+			"ru": {
+				"install_script": "Исполнение инсталятора с 'https://pmmp.readthedocs.io/en/rtfd/installation/get-dot-pmmp-dot-io.html'",
+				"success_pm": "PocketMine успешно установлен!",
+				"run_by_command": "Запустить можно командой ниже:"
+				}
+		},
+		"stages": [
+			{
+				"name": "False",
+				"script": [
+					"log.info(i18('install_script'), '   ~ ')",
+					"log.warn(pmmpInstallCommand,    > )",
+					"getoutput('cd ' + path + ' ; ' + pmmpInstallCommand + ' ; ' + 'cd -')",
+					"print()",
+					"log.success(i18('success_pm'))",
+					"log.success(i18('run_by_command'))",
+					"log.info(C.BOLD + C.ITALIC + 'cd ' + path + ' ; ./start.sh' + C.NULL)"
+				]
+			}
+		]
 	}
 ]
